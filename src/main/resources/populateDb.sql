@@ -1,0 +1,17 @@
+INSERT INTO Menu (MENU_ID, MESSAGE,USER_OPTIONS,META_DESCRIPTION ) VALUES
+   ('1',
+   'Welcome to Mama Money! Where would you like to send money to?\n1) Kenya\n2) Malawi',
+   '{"type": "fixed", "options": ["1","2"]}',
+    'Select a country'),
+   ('2',
+      'How much money in rands (in Rands) would you like to send to %s?',
+      '{"type": "open", "options": []}',
+      'Integer only rand value'),
+   ('3',
+      'Your person you are sending to will receive: %s %s\n1) OK',
+      '{"type": "open", "options": ["1"]}',
+      'Confirm converted amount and currency'),
+    ('4',
+       'Thank you for using Mama Money!',
+       NULL,
+       'Closing remarks');
