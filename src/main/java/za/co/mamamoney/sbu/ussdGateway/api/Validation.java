@@ -9,6 +9,7 @@ import za.co.mamamoney.sbu.ussdGateway.exceptionHandling.InvalidEntryException;
 import za.co.mamamoney.sbu.ussdGateway.model.*;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 @Component
@@ -57,7 +58,7 @@ public class Validation {
             throw new InvalidEntryException("Non-decimal number greater than zero is required.");
         }
         if(!validUserEntry && lastMenuOptions.getType().equals(Constants.FIXED_MENU)){
-            throw new InvalidEntryException("Invalid option selected.");
+            throw new InvalidEntryException(String.format("Invalid option selected=%s. Valid inputs=%s",userEntry,Arrays.deepToString(lastMenuOptions.getOptions())));
         }
         lastMenuPresented.setSelection(userEntry);
     }
