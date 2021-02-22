@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
@@ -25,7 +24,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     ResponseEntity<ApiExceptionWrapper>
     handleInvalidSessionException(InvalidSessionException e) {
         LOGGER.error(String.format("Invalid Session ID passed | %s", e.getMessage()));
-        return new ResponseEntity<ApiExceptionWrapper>(
+        return new ResponseEntity<>(
                 ApiExceptionWrapper.builder().status(HttpStatus.BAD_REQUEST).timestamp(LocalDateTime.now()).message(e.getMessage()).build(),
                 HttpStatus.BAD_REQUEST);
     }
@@ -36,7 +35,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     ResponseEntity<ApiExceptionWrapper>
     handleInvalidEntryException(InvalidEntryException e) {
         LOGGER.error(String.format("Invalid user entry passed | %s", e.getMessage()));
-        return new ResponseEntity<ApiExceptionWrapper>(
+        return new ResponseEntity<>(
                 ApiExceptionWrapper.builder().status(HttpStatus.BAD_REQUEST).timestamp(LocalDateTime.now()).message(e.getMessage()).build(),
                 HttpStatus.BAD_REQUEST);
     }
@@ -45,7 +44,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ApiExceptionWrapper> handleException(Exception e) {
         String reference = UUID.randomUUID().toString();
         LOGGER.error(String.format("Unexpected exception= %s | %s | reference=%s", e.getMessage(), e.getCause().getLocalizedMessage(), reference), e.getCause());
-        return new ResponseEntity<ApiExceptionWrapper>(
+        return new ResponseEntity<>(
                 ApiExceptionWrapper.builder().status(HttpStatus.INTERNAL_SERVER_ERROR).timestamp(LocalDateTime.now())
                         .message(String.format("Unexpected Exception. Reference=%s", reference)).build(),
                 HttpStatus.INTERNAL_SERVER_ERROR);
