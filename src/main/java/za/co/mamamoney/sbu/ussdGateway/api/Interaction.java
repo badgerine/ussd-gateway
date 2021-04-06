@@ -93,11 +93,7 @@ public class Interaction {
             if(nextMenu != null) {
                 menuRepository.setMenuPresentedById(sessionId, nextMenu.getMenuId());
             }
-            if(session.getSessionStatus().equals(SessionStatus.NEW.name())){
-                sessionRepository.setSessionById(sessionId,session.getMsisdn(),session.getLastModified(),session.getSessionStatus());
-            } else {
-                sessionRepository.setSessionById(sessionId, LocalDateTime.now(), session.getSessionStatus(), session.getDestinationCountry());
-            }
+            sessionRepository.save(session);
         }
 
         return buildResponse(sessionId, nextMenu.getMessage());
